@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -10,6 +11,7 @@ using TopsyTurvyCakes.Models;
 
 namespace TopsyTurvyCakes.Pages.Admin
 {
+    [Authorize] //zabezpecenie stranky len pre autorizovanych uzivatelov
     public class AddEditRecipeModel : PageModel
     {
         [FromRoute] //ziskanie hodnoty property Id z route (URL)
@@ -43,6 +45,11 @@ namespace TopsyTurvyCakes.Pages.Admin
 
         public async Task<IActionResult> OnPostAsync()
         {
+            if (!ModelState.IsValid) //overenie validnosti modelu
+            {
+                return Page(); //ak je model nevalidny, zobrazi sa povodna stranka a kontrolky su naplnene vlozenymi datami
+            }
+
             var recipe = await _recipesService.FindAsync(Id.GetValueOrDefault()) ?? new Recipe();
 
             recipe.Name = Recipe.Name;

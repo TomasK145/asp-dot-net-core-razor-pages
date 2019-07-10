@@ -4,12 +4,21 @@
 @{
     ViewData["Title"] = Model.IsNewRecipe ? "New Recipe" : "Edit Recipe";
 }
+    @if (!ModelState.IsValid)
+    {
+        <div class="col-md-offset-2" col-md-10">
+            <h3 class="text-danger">Validation Errors</h3>
+            <div asp-validation-summary="All"></div> @*pridanie validation summary *@
+            <hr/>
+        </div>
+    }
 
     <form method="post" class="form-horizontal" enctype="multipart/form-data">
         <div class="form-group">
             <label asp-for="Recipe.Name" class="col-md-2 control-label"></label>
             <div class="col-md-10">
                 <input asp-for="Recipe.Name" class="form-control" /> @* asp-for tag helper umozni automaticke nastavenie typu, nazvu a aj hodnoty pre zadafinovanu property *@
+                <span asp-validation-for="Recipe.Name"></span> @*validacna hlaska pre jeden field *@
             </div>
         </div>
         <div class="form-group">
