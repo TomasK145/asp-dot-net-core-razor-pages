@@ -1,11 +1,11 @@
 ﻿@page "{id}"
 @*--> "@page "{id}" pattern ktory urcuje pre razor pagu , ze co nasleduje po page URL a prepoji to s route variable id  *@
+
 @{
     //Layout = "_Layout";
     string idString = (string)RouteData.Values["id"]; //ziskanie route value z premennej
     var id = long.Parse(idString);
-    var recipeService = new RecipesService();
-    var recipe = await recipeService.FindAsync(id);
+    var recipe = await RecipeService.FindAsync(id);
 
     ViewData["Title"] = recipe.Name;
 }

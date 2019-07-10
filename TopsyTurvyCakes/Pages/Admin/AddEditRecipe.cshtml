@@ -1,0 +1,8 @@
+﻿@page "{id?}"
+@*optional route variable --> pre moznost urcenia ci sa jedna o vytvorenie/update zaznamu*@
+@model TopsyTurvyCakes.Pages.Admin.AddEditRecipeModel
+@{
+    ViewData["Title"] = Model.IsNewRecipe ? "New Recipe" : "Edit Recipe";
+}
+
+<strong>Id: @Model.Id</strong>
