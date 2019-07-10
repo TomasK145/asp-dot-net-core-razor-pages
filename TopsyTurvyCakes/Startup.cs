@@ -15,6 +15,9 @@ namespace TopsyTurvyCakes
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            //folder Pages je dolezity pretoze tam bude Razor engine vyhladavat stranky
+            //MVC je zareferencovane, pretoze Razor pages je super set ASP.NET Core MVC
+            services.AddMvc(); 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -25,10 +28,9 @@ namespace TopsyTurvyCakes
                 app.UseDeveloperExceptionPage();
             }
 
-            app.Run(async (context) =>
-            {
-                await context.Response.WriteAsync("Hello World!");
-            });
+            app.UseStaticFiles(); //asp.net core kontroluje wwwroot folder a ziska staticke files pokial maju nazov aky je pozadovany requestom
+
+            app.UseMvcWithDefaultRoute();
         }
     }
 }
